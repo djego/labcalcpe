@@ -1,33 +1,33 @@
-import React, { useState } from 'react';
-import { Calculator, Coins, Gift, Calendar, Banknote, Users } from 'lucide-react';
-import SueldoLiquido from './components/SueldoLiquido';
-import CTSCalculator from './components/CTSCalculator';
-import GratificacionCalculator from './components/GratificacionCalculator';
-import UtilidadesCalculator from './components/UtilidadesCalculator';
-import VacacionesCalculator from './components/VacacionesCalculator';
+import { useState } from "react";
+import { Calculator, Coins, Gift, Calendar, Banknote, Users } from "lucide-react";
+import SueldoLiquido from "./components/SueldoLiquido";
+import CTSCalculator from "./components/CTSCalculator";
+import GratificacionCalculator from "./components/GratificacionCalculator";
+import UtilidadesCalculator from "./components/UtilidadesCalculator";
+import VacacionesCalculator from "./components/VacacionesCalculator";
 
 function App() {
-  const [activeTab, setActiveTab] = useState('sueldo');
+  const [activeTab, setActiveTab] = useState("sueldo");
 
   const tabs = [
-    { id: 'sueldo', label: 'Sueldo Líquido', icon: Calculator },
-    { id: 'cts', label: 'CTS', icon: Coins },
-    { id: 'gratificacion', label: 'Gratificaciones', icon: Gift },
-    { id: 'utilidades', label: 'Utilidades', icon: Banknote },
-    { id: 'vacaciones', label: 'Vacaciones', icon: Calendar },
+    { id: "sueldo", label: "Sueldo Líquido", icon: Calculator },
+    { id: "cts", label: "CTS", icon: Coins },
+    { id: "gratificacion", label: "Gratificaciones", icon: Gift },
+    { id: "utilidades", label: "Utilidades", icon: Banknote },
+    { id: "vacaciones", label: "Vacaciones", icon: Calendar },
   ];
 
   const renderActiveComponent = () => {
     switch (activeTab) {
-      case 'sueldo':
+      case "sueldo":
         return <SueldoLiquido />;
-      case 'cts':
+      case "cts":
         return <CTSCalculator />;
-      case 'gratificacion':
+      case "gratificacion":
         return <GratificacionCalculator />;
-      case 'utilidades':
+      case "utilidades":
         return <UtilidadesCalculator />;
-      case 'vacaciones':
+      case "vacaciones":
         return <VacacionesCalculator />;
       default:
         return <SueldoLiquido />;
@@ -45,8 +45,12 @@ function App() {
                 <Users className="h-6 w-6 text-white" />
               </div>
               <div>
-                <h1 className="text-xl font-bold text-gray-900">Calculadora Laboral Perú</h1>
-                <p className="text-sm text-gray-600">Herramientas para cálculos laborales</p>
+                <h1 className="text-xl font-bold text-gray-900">
+                  Calculadora Laboral Perú
+                </h1>
+                <p className="text-sm text-gray-600">
+                  Herramientas para cálculos laborales
+                </p>
               </div>
             </div>
           </div>
@@ -56,7 +60,8 @@ function App() {
       {/* Navigation Tabs */}
       <nav className="bg-white shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex space-x-8 overflow-x-auto">
+          <div className="flex space-x-8 overflow-x-auto md:flex-wrap md:overflow-visible">
+            {" "}
             {tabs.map((tab) => {
               const Icon = tab.icon;
               return (
@@ -65,8 +70,8 @@ function App() {
                   onClick={() => setActiveTab(tab.id)}
                   className={`flex items-center space-x-2 py-4 px-1 border-b-2 font-medium text-sm whitespace-nowrap transition-colors duration-200 ${
                     activeTab === tab.id
-                      ? 'border-blue-500 text-blue-600'
-                      : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                      ? "border-blue-500 text-blue-600"
+                      : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
                   }`}
                 >
                   <Icon className="h-4 w-4" />
@@ -88,10 +93,12 @@ function App() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="text-center">
             <p className="text-gray-600 text-sm">
-              Calculadora Laboral Perú - Herramienta para cálculos laborales según normativa peruana
+              Calculadora Laboral Perú - Herramienta para cálculos laborales según
+              normativa peruana
             </p>
             <p className="text-gray-500 text-xs mt-2">
-              Los cálculos son referenciales. Consulte con un especialista para casos específicos.
+              Los cálculos son referenciales. Consulte con un especialista para casos
+              específicos.
             </p>
           </div>
         </div>
