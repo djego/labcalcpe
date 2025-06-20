@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Calculator, DollarSign, Info } from 'lucide-react';
 
 interface SueldoCalculation {
@@ -9,8 +9,12 @@ interface SueldoCalculation {
   liquido: number;
 }
 
-const SueldoLiquido: React.FC = () => {
-  const [sueldoBruto, setSueldoBruto] = useState<string>('');
+interface Props {
+  sueldoBasico: string;
+  setSueldoBasico: (value: string) => void;
+}
+
+const SueldoLiquido: React.FC<Props> = ({ sueldoBasico, setSueldoBasico }) => {
   const [tipoDescuento, setTipoDescuento] = useState<'afp' | 'onp'>('afp');
   const [porcentajeAFP, setPorcentajeAFP] = useState<string>('10.23');
   const [calculation, setCalculation] = useState<SueldoCalculation | null>(null);
@@ -19,7 +23,7 @@ const SueldoLiquido: React.FC = () => {
   const LIMITE_RENTA = (7 * UIT_2024) / 12; // 7 UIT anuales dividido entre 12 meses
 
   const calcularSueldoLiquido = () => {
-    const bruto = parseFloat(sueldoBruto);
+    const bruto = parseFloat(sueldoBasico);
     if (!bruto || bruto <= 0) return;
 
     let descuentoAFP = 0;
@@ -60,6 +64,13 @@ const SueldoLiquido: React.FC = () => {
     });
   };
 
+  // Auto-calculate when sueldo changes
+  useEffect(() => {
+    if (sueldoBasico) {
+      calcularSueldoLiquido();
+    }
+  }, [sueldoBasico, tipoDescuento, porcentajeAFP]);
+
   return (
     <div className="space-y-6">
       <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
@@ -75,18 +86,13 @@ const SueldoLiquido: React.FC = () => {
 
         <div className="grid md:grid-cols-2 gap-6">
           <div className="space-y-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Sueldo Bruto Mensual (S/)
-              </label>
-              <input
-                type="number"
-                value={sueldoBruto}
-                onChange={(e) => setSueldoBruto(e.target.value)}
-                placeholder="Ingresa tu sueldo bruto"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
-              />
-            </div>
+            {!sueldoBasico && (
+              <div className="p-4 bg-yellow-50 rounded-lg border border-yellow-200">
+                <p className="text-sm text-yellow-800">
+                  <strong>Ingresa tu sueldo básico</strong> en la parte superior para comenzar los cálculos.
+                </p>
+              </div>
+            )}
 
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -132,16 +138,9 @@ const SueldoLiquido: React.FC = () => {
                 <p className="text-xs text-gray-500 mt-1">Promedio aproximado: 10.23%</p>
               </div>
             )}
-
-            <button
-              onClick={calcularSueldoLiquido}
-              className="w-full bg-blue-600 text-white py-3 px-4 rounded-lg hover:bg-blue-700 transition-colors duration-200 font-medium"
-            >
-              Calcular Sueldo Líquido
-            </button>
           </div>
 
-          {calculation && (
+          {calculation && sueldoBasico && (
             <div className="bg-gray-50 rounded-lg p-6">
               <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
                 <DollarSign className="h-5 w-5 mr-2 text-green-600" />

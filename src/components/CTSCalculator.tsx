@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Coins, Calendar, Info } from 'lucide-react';
 
 interface CTSCalculation {
@@ -9,14 +9,18 @@ interface CTSCalculation {
   cts: number;
 }
 
-const CTSCalculator: React.FC = () => {
-  const [sueldo, setSueldo] = useState<string>('');
+interface Props {
+  sueldoBasico: string;
+  setSueldoBasico: (value: string) => void;
+}
+
+const CTSCalculator: React.FC<Props> = ({ sueldoBasico }) => {
   const [meses, setMeses] = useState<string>('12');
   const [gratificacion, setGratificacion] = useState<string>('');
   const [calculation, setCalculation] = useState<CTSCalculation | null>(null);
 
   const calcularCTS = () => {
-    const sueldoBase = parseFloat(sueldo);
+    const sueldoBase = parseFloat(sueldoBasico);
     const mesesTrabajados = parseFloat(meses);
     const gratif = parseFloat(gratificacion) || sueldoBase; // Si no ingresa gratificación, usa el sueldo base
 
@@ -40,6 +44,13 @@ const CTSCalculator: React.FC = () => {
     });
   };
 
+  // Auto-calculate when values change
+  useEffect(() => {
+    if (sueldoBasico) {
+      calcularCTS();
+    }
+  }, [sueldoBasico, meses, gratificacion]);
+
   return (
     <div className="space-y-6">
       <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
@@ -55,18 +66,13 @@ const CTSCalculator: React.FC = () => {
 
         <div className="grid md:grid-cols-2 gap-6">
           <div className="space-y-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Sueldo Básico Mensual (S/)
-              </label>
-              <input
-                type="number"
-                value={sueldo}
-                onChange={(e) => setSueldo(e.target.value)}
-                placeholder="Ingresa tu sueldo básico"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-200"
-              />
-            </div>
+            {!sueldoBasico && (
+              <div className="p-4 bg-yellow-50 rounded-lg border border-yellow-200">
+                <p className="text-sm text-yellow-800">
+                  <strong>Ingresa tu sueldo básico</strong> en la parte superior para comenzar los cálculos.
+                </p>
+              </div>
+            )}
 
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -76,7 +82,7 @@ const CTSCalculator: React.FC = () => {
                 type="number"
                 value={gratificacion}
                 onChange={(e) => setGratificacion(e.target.value)}
-                placeholder="Opcional - se usará el sueldo básico"
+                placeholder={`Opcional - se usará S/ ${sueldoBasico || '0'}`}
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-200"
               />
               <p className="text-xs text-gray-500 mt-1">Si no ingresa, se usará el sueldo básico</p>
@@ -97,16 +103,9 @@ const CTSCalculator: React.FC = () => {
               />
               <p className="text-xs text-gray-500 mt-1">Para período completo: 12 meses</p>
             </div>
-
-            <button
-              onClick={calcularCTS}
-              className="w-full bg-green-600 text-white py-3 px-4 rounded-lg hover:bg-green-700 transition-colors duration-200 font-medium"
-            >
-              Calcular CTS
-            </button>
           </div>
 
-          {calculation && (
+          {calculation && sueldoBasico && (
             <div className="bg-gray-50 rounded-lg p-6">
               <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
                 <Calendar className="h-5 w-5 mr-2 text-green-600" />

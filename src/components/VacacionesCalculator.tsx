@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Calendar, Sun, Info } from 'lucide-react';
 
 interface VacacionesCalculation {
@@ -9,13 +9,17 @@ interface VacacionesCalculation {
   vacacionesTruncas: number;
 }
 
-const VacacionesCalculator: React.FC = () => {
-  const [sueldo, setSueldo] = useState<string>('');
+interface Props {
+  sueldoBasico: string;
+  setSueldoBasico: (value: string) => void;
+}
+
+const VacacionesCalculator: React.FC<Props> = ({ sueldoBasico }) => {
   const [meses, setMeses] = useState<string>('12');
   const [calculation, setCalculation] = useState<VacacionesCalculation | null>(null);
 
   const calcularVacaciones = () => {
-    const sueldoBase = parseFloat(sueldo);
+    const sueldoBase = parseFloat(sueldoBasico);
     const mesesTrabajados = parseFloat(meses);
 
     if (!sueldoBase || !mesesTrabajados || sueldoBase <= 0 || mesesTrabajados <= 0) return;
@@ -40,6 +44,13 @@ const VacacionesCalculator: React.FC = () => {
     });
   };
 
+  // Auto-calculate when values change
+  useEffect(() => {
+    if (sueldoBasico) {
+      calcularVacaciones();
+    }
+  }, [sueldoBasico, meses]);
+
   return (
     <div className="space-y-6">
       <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
@@ -55,18 +66,13 @@ const VacacionesCalculator: React.FC = () => {
 
         <div className="grid md:grid-cols-2 gap-6">
           <div className="space-y-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Sueldo Básico Mensual (S/)
-              </label>
-              <input
-                type="number"
-                value={sueldo}
-                onChange={(e) => setSueldo(e.target.value)}
-                placeholder="Ingresa tu sueldo básico"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all duration-200"
-              />
-            </div>
+            {!sueldoBasico && (
+              <div className="p-4 bg-yellow-50 rounded-lg border border-yellow-200">
+                <p className="text-sm text-yellow-800">
+                  <strong>Ingresa tu sueldo básico</strong> en la parte superior para comenzar los cálculos.
+                </p>
+              </div>
+            )}
 
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -83,16 +89,9 @@ const VacacionesCalculator: React.FC = () => {
               />
               <p className="text-xs text-gray-500 mt-1">Meses completos trabajados en el año</p>
             </div>
-
-            <button
-              onClick={calcularVacaciones}
-              className="w-full bg-teal-600 text-white py-3 px-4 rounded-lg hover:bg-teal-700 transition-colors duration-200 font-medium"
-            >
-              Calcular Vacaciones
-            </button>
           </div>
 
-          {calculation && (
+          {calculation && sueldoBasico && (
             <div className="bg-gray-50 rounded-lg p-6">
               <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
                 <Sun className="h-5 w-5 mr-2 text-teal-600" />
