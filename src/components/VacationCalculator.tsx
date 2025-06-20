@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Calendar, Sun, Info } from 'lucide-react';
 
-interface VacacionesCalculation {
+interface VacationCalculation {
   sueldoBase: number;
   mesesTrabajados: number;
   diasVacaciones: number;
@@ -14,9 +14,9 @@ interface Props {
   setSueldoBasico: (value: string) => void;
 }
 
-const VacacionesCalculator: React.FC<Props> = ({ sueldoBasico }) => {
+const VacationCalculator: React.FC<Props> = ({ sueldoBasico }) => {
   const [meses, setMeses] = useState<string>('12');
-  const [calculation, setCalculation] = useState<VacacionesCalculation | null>(null);
+  const [calculation, setCalculation] = useState<VacationCalculation | null>(null);
 
   const calcularVacaciones = () => {
     const sueldoBase = parseFloat(sueldoBasico);
@@ -166,4 +166,4 @@ const VacacionesCalculator: React.FC<Props> = ({ sueldoBasico }) => {
   );
 };
 
-export default VacacionesCalculator;
+export default VacationCalculator;

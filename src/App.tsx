@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { Calculator, Coins, Gift, Calendar, Banknote, Users, DollarSign } from "lucide-react";
-import SueldoLiquido from "./components/SueldoLiquido";
+import NetSalaryCalculator from "./components/NetSalaryCalculator";
 import CTSCalculator from "./components/CTSCalculator";
-import GratificacionCalculator from "./components/GratificacionCalculator";
-import UtilidadesCalculator from "./components/UtilidadesCalculator";
-import VacacionesCalculator from "./components/VacacionesCalculator";
+import BonusCalculator from "./components/BonusCalculator";
+import ProfitSharingCalculator from "./components/ProfitSharingCalculator";
+import VacationCalculator from "./components/VacationCalculator";
 
 function App() {
   const [activeTab, setActiveTab] = useState("sueldo");
@@ -26,17 +26,17 @@ function App() {
 
     switch (activeTab) {
       case "sueldo":
-        return <SueldoLiquido {...commonProps} />;
+        return <NetSalaryCalculator {...commonProps} />;
       case "cts":
         return <CTSCalculator {...commonProps} />;
       case "gratificacion":
-        return <GratificacionCalculator {...commonProps} />;
+        return <BonusCalculator {...commonProps} />;
       case "utilidades":
-        return <UtilidadesCalculator {...commonProps} />;
+        return <ProfitSharingCalculator {...commonProps} />;
       case "vacaciones":
-        return <VacacionesCalculator {...commonProps} />;
+        return <VacationCalculator {...commonProps} />;
       default:
-        return <SueldoLiquido {...commonProps} />;
+        return <NetSalaryCalculator {...commonProps} />;
     }
   };
 

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Gift, Star, Info } from 'lucide-react';
 
-interface GratificacionCalculation {
+interface BonusCalculation {
   sueldoBase: number;
   mesesTrabajados: number;
   gratificacionJulio: number;
@@ -14,10 +14,10 @@ interface Props {
   setSueldoBasico: (value: string) => void;
 }
 
-const GratificacionCalculator: React.FC<Props> = ({ sueldoBasico }) => {
+const BonusCalculator: React.FC<Props> = ({ sueldoBasico }) => {
   const [mesesJulio, setMesesJulio] = useState<string>('6');
   const [mesesNavidad, setMesesNavidad] = useState<string>('6');
-  const [calculation, setCalculation] = useState<GratificacionCalculation | null>(null);
+  const [calculation, setCalculation] = useState<BonusCalculation | null>(null);
 
   const calcularGratificaciones = () => {
     const sueldoBase = parseFloat(sueldoBasico);
@@ -173,4 +173,4 @@ const GratificacionCalculator: React.FC<Props> = ({ sueldoBasico }) => {
   );
 };
 
-export default GratificacionCalculator;
+export default BonusCalculator;

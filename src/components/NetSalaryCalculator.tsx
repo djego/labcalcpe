@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Calculator, DollarSign, Info } from 'lucide-react';
 
-interface SueldoCalculation {
+interface NetSalaryCalculation {
   bruto: number;
   descuentoAFP: number;
   descuentoONP: number;
@@ -14,10 +14,10 @@ interface Props {
   setSueldoBasico: (value: string) => void;
 }
 
-const SueldoLiquido: React.FC<Props> = ({ sueldoBasico, setSueldoBasico }) => {
+const NetSalaryCalculator: React.FC<Props> = ({ sueldoBasico, setSueldoBasico }) => {
   const [tipoDescuento, setTipoDescuento] = useState<'afp' | 'onp'>('afp');
   const [porcentajeAFP, setPorcentajeAFP] = useState<string>('10.23');
-  const [calculation, setCalculation] = useState<SueldoCalculation | null>(null);
+  const [calculation, setCalculation] = useState<NetSalaryCalculation | null>(null);
 
   const UIT_2024 = 5150; // Unidad Impositiva Tributaria 2024
   const LIMITE_RENTA = (7 * UIT_2024) / 12; // 7 UIT anuales dividido entre 12 meses
@@ -201,4 +201,4 @@ const SueldoLiquido: React.FC<Props> = ({ sueldoBasico, setSueldoBasico }) => {
   );
 };
 
-export default SueldoLiquido;
+export default NetSalaryCalculator;

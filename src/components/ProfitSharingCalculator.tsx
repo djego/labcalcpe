@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Banknote, TrendingUp, Info } from 'lucide-react';
 
-interface UtilidadesCalculation {
+interface ProfitSharingCalculation {
   sueldoBase: number;
   mesesTrabajados: number;
   rentaAnual: number;
@@ -14,11 +14,11 @@ interface Props {
   setSueldoBasico: (value: string) => void;
 }
 
-const UtilidadesCalculator: React.FC<Props> = ({ sueldoBasico }) => {
+const ProfitSharingCalculator: React.FC<Props> = ({ sueldoBasico }) => {
   const [meses, setMeses] = useState<string>('12');
   const [rentaAnual, setRentaAnual] = useState<string>('');
   const [porcentaje, setPorcentaje] = useState<string>('8');
-  const [calculation, setCalculation] = useState<UtilidadesCalculation | null>(null);
+  const [calculation, setCalculation] = useState<ProfitSharingCalculation | null>(null);
 
   const calcularUtilidades = () => {
     const sueldoBase = parseFloat(sueldoBasico);
@@ -184,4 +184,4 @@ const UtilidadesCalculator: React.FC<Props> = ({ sueldoBasico }) => {
   );
 };
 
-export default UtilidadesCalculator;
+export default ProfitSharingCalculator;
