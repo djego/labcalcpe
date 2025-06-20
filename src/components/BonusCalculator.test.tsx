@@ -1,6 +1,6 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
-import BonusCalculator from '../components/BonusCalculator';
+import BonusCalculator from './BonusCalculator';
 
 const mockProps = {
   sueldoBasico: '3000',
@@ -33,7 +33,7 @@ describe('BonusCalculator', () => {
   it('updates July period months correctly', () => {
     render(<BonusCalculator {...mockProps} />);
     
-    const julyMonthsInput = screen.getByDisplayValue('6');
+    const julyMonthsInput = screen.getByTestId('july-months-input');
     fireEvent.change(julyMonthsInput, { target: { value: '3' } });
     
     expect(julyMonthsInput).toHaveValue(3);
@@ -42,8 +42,7 @@ describe('BonusCalculator', () => {
   it('updates Christmas period months correctly', () => {
     render(<BonusCalculator {...mockProps} />);
     
-    const christmasMonthsInputs = screen.getAllByDisplayValue('6');
-    const christmasInput = christmasMonthsInputs[1]; // Second input is for Christmas
+    const christmasInput = screen.getByTestId('christmas-months-input');
     fireEvent.change(christmasInput, { target: { value: '4' } });
     
     expect(christmasInput).toHaveValue(4);

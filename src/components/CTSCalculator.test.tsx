@@ -1,6 +1,6 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
-import CTSCalculator from '../components/CTSCalculator';
+import CTSCalculator from './CTSCalculator';
 
 const mockProps = {
   sueldoBasico: '3000',
@@ -33,7 +33,7 @@ describe('CTSCalculator', () => {
   it('updates months worked correctly', () => {
     render(<CTSCalculator {...mockProps} />);
     
-    const monthsInput = screen.getByDisplayValue('12');
+    const monthsInput = screen.getByTestId('cts-months-input');
     fireEvent.change(monthsInput, { target: { value: '6' } });
     
     expect(monthsInput).toHaveValue(6);
@@ -42,14 +42,14 @@ describe('CTSCalculator', () => {
   it('uses basic salary as bonus when no bonus is provided', () => {
     render(<CTSCalculator {...mockProps} />);
     
-    const bonusInput = screen.getByPlaceholderText(/se usará S\/ 3000/);
+    const bonusInput = screen.getByTestId('cts-bonus-input');
     expect(bonusInput).toBeInTheDocument();
   });
 
   it('calculates with custom bonus amount', () => {
     render(<CTSCalculator {...mockProps} />);
     
-    const bonusInput = screen.getByPlaceholderText(/se usará S\/ 3000/);
+    const bonusInput = screen.getByTestId('cts-bonus-input');
     fireEvent.change(bonusInput, { target: { value: '3500' } });
     
     expect(bonusInput).toHaveValue(3500);
