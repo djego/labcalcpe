@@ -1,6 +1,6 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
-import NetSalaryCalculator from '../components/NetSalaryCalculator';
+import NetSalaryCalculator from './NetSalaryCalculator';
 
 const mockProps = {
   sueldoBasico: '3000',

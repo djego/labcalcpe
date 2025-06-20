@@ -1,6 +1,6 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
-import VacationCalculator from '../components/VacationCalculator';
+import VacationCalculator from './VacationCalculator';
 
 const mockProps = {
   sueldoBasico: '3000',

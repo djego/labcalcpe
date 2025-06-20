@@ -85,6 +85,7 @@ const BonusCalculator: React.FC<Props> = ({ sueldoBasico }) => {
                   value={mesesJulio}
                   onChange={(e) => setMesesJulio(e.target.value)}
                   placeholder="6"
+                  data-testid="july-months-input"
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200"
                 />
                 <p className="text-xs text-gray-500 mt-1">Para Fiestas Patrias</p>
@@ -101,6 +102,7 @@ const BonusCalculator: React.FC<Props> = ({ sueldoBasico }) => {
                   value={mesesNavidad}
                   onChange={(e) => setMesesNavidad(e.target.value)}
                   placeholder="6"
+                  data-testid="christmas-months-input"
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200"
                 />
                 <p className="text-xs text-gray-500 mt-1">Para Navidad</p>

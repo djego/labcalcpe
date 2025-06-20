@@ -83,6 +83,7 @@ const CTSCalculator: React.FC<Props> = ({ sueldoBasico }) => {
                 value={gratificacion}
                 onChange={(e) => setGratificacion(e.target.value)}
                 placeholder={`Opcional - se usará S/ ${sueldoBasico || '0'}`}
+                data-testid="cts-bonus-input"
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-200"
               />
               <p className="text-xs text-gray-500 mt-1">Si no ingresa, se usará el sueldo básico</p>
@@ -99,6 +100,7 @@ const CTSCalculator: React.FC<Props> = ({ sueldoBasico }) => {
                 value={meses}
                 onChange={(e) => setMeses(e.target.value)}
                 placeholder="12"
+                data-testid="cts-months-input"
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-200"
               />
               <p className="text-xs text-gray-500 mt-1">Para período completo: 12 meses</p>
