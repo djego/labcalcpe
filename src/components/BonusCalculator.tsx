@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Gift, Star, Info } from 'lucide-react';
+import React, { useState, useEffect } from "react";
+import { Gift, Star, Info } from "lucide-react";
 
 interface BonusCalculation {
   sueldoBase: number;
@@ -15,8 +15,8 @@ interface Props {
 }
 
 const BonusCalculator: React.FC<Props> = ({ sueldoBasico }) => {
-  const [mesesJulio, setMesesJulio] = useState<string>('6');
-  const [mesesNavidad, setMesesNavidad] = useState<string>('6');
+  const [mesesJulio, setMesesJulio] = useState<string>("6");
+  const [mesesNavidad, setMesesNavidad] = useState<string>("6");
   const [calculation, setCalculation] = useState<BonusCalculation | null>(null);
 
   const calcularGratificaciones = () => {
@@ -28,10 +28,10 @@ const BonusCalculator: React.FC<Props> = ({ sueldoBasico }) => {
 
     // Gratificación de Fiestas Patrias (enero - junio)
     const gratificacionJulio = (sueldoBase * mesesJ) / 6;
-    
+
     // Gratificación de Navidad (julio - diciembre)
     const gratificacionNavidad = (sueldoBase * mesesN) / 6;
-    
+
     const total = gratificacionJulio + gratificacionNavidad;
 
     setCalculation({
@@ -39,7 +39,7 @@ const BonusCalculator: React.FC<Props> = ({ sueldoBasico }) => {
       mesesTrabajados: mesesJ + mesesN,
       gratificacionJulio,
       gratificacionNavidad,
-      total
+      total,
     });
   };
 
@@ -58,7 +58,9 @@ const BonusCalculator: React.FC<Props> = ({ sueldoBasico }) => {
             <Gift className="h-5 w-5 text-orange-600" />
           </div>
           <div>
-            <h2 className="text-xl font-semibold text-gray-900">Calculadora de Gratificaciones</h2>
+            <h2 className="text-xl font-semibold text-gray-900">
+              Calculadora de Gratificaciones
+            </h2>
             <p className="text-gray-600">Fiestas Patrias y Navidad</p>
           </div>
         </div>
@@ -68,7 +70,8 @@ const BonusCalculator: React.FC<Props> = ({ sueldoBasico }) => {
             {!sueldoBasico && (
               <div className="p-4 bg-yellow-50 rounded-lg border border-yellow-200">
                 <p className="text-sm text-yellow-800">
-                  <strong>Ingresa tu sueldo básico</strong> en la parte superior para comenzar los cálculos.
+                  <strong>Ingresa tu sueldo básico</strong> en la parte superior para
+                  comenzar los cálculos.
                 </p>
               </div>
             )}
@@ -116,38 +119,53 @@ const BonusCalculator: React.FC<Props> = ({ sueldoBasico }) => {
                 <Star className="h-5 w-5 mr-2 text-orange-600" />
                 Resultado del Cálculo
               </h3>
-              
+
               <div className="space-y-3">
                 <div className="flex justify-between items-center p-3 bg-white rounded-lg">
                   <span className="text-gray-700">Sueldo Básico:</span>
-                  <span className="font-semibold text-gray-900">S/ {calculation.sueldoBase.toFixed(2)}</span>
+                  <span className="font-semibold text-gray-900">
+                    S/ {calculation.sueldoBase.toFixed(2)}
+                  </span>
                 </div>
-                
+
                 <div className="flex justify-between items-center p-3 bg-blue-50 rounded-lg">
                   <span className="text-blue-700">Gratificación Fiestas Patrias:</span>
-                  <span className="font-semibold text-blue-800">S/ {calculation.gratificacionJulio.toFixed(2)}</span>
+                  <span
+                    className="font-semibold text-blue-800"
+                    data-testid="basic-salary"
+                  >
+                    S/ {calculation.gratificacionJulio.toFixed(2)}
+                  </span>
                 </div>
-                
+
                 <div className="flex justify-between items-center p-3 bg-purple-50 rounded-lg">
                   <span className="text-purple-700">Gratificación Navidad:</span>
-                  <span className="font-semibold text-purple-800">S/ {calculation.gratificacionNavidad.toFixed(2)}</span>
+                  <span className="font-semibold text-purple-800">
+                    S/ {calculation.gratificacionNavidad.toFixed(2)}
+                  </span>
                 </div>
-                
+
                 <div className="flex justify-between items-center p-4 bg-orange-100 rounded-lg border-2 border-orange-200">
-                  <span className="text-orange-800 font-medium">Total Gratificaciones:</span>
-                  <span className="font-bold text-xl text-orange-800">S/ {calculation.total.toFixed(2)}</span>
+                  <span className="text-orange-800 font-medium">
+                    Total Gratificaciones:
+                  </span>
+                  <span className="font-bold text-xl text-orange-800">
+                    S/ {calculation.total.toFixed(2)}
+                  </span>
                 </div>
               </div>
 
               <div className="mt-4 space-y-2">
                 <div className="p-3 bg-blue-50 rounded-lg">
                   <p className="text-sm text-blue-800">
-                    <strong>Fiestas Patrias:</strong> Se paga en julio (período enero-junio)
+                    <strong>Fiestas Patrias:</strong> Se paga en julio (período
+                    enero-junio)
                   </p>
                 </div>
                 <div className="p-3 bg-purple-50 rounded-lg">
                   <p className="text-sm text-purple-800">
-                    <strong>Navidad:</strong> Se paga en diciembre (período julio-diciembre)
+                    <strong>Navidad:</strong> Se paga en diciembre (período
+                    julio-diciembre)
                   </p>
                 </div>
               </div>
