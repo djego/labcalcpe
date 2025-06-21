@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Calculator, DollarSign, Info } from 'lucide-react';
+import { Calculator, DollarSign, Info, BarChart3 } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 interface NetSalaryCalculation {
   bruto: number;
@@ -74,14 +75,25 @@ const NetSalaryCalculator: React.FC<Props> = ({ sueldoBasico, setSueldoBasico })
   return (
     <div className="space-y-6">
       <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-        <div className="flex items-center space-x-3 mb-6">
-          <div className="bg-blue-100 p-2 rounded-lg">
-            <Calculator className="h-5 w-5 text-blue-600" />
+        <div className="flex items-center justify-between mb-6">
+          <div className="flex items-center space-x-3">
+            <div className="bg-blue-100 p-2 rounded-lg">
+              <Calculator className="h-5 w-5 text-blue-600" />
+            </div>
+            <div>
+              <h2 className="text-xl font-semibold text-gray-900">Calculadora de Sueldo Líquido</h2>
+              <p className="text-gray-600">Calcula tu sueldo después de descuentos</p>
+            </div>
           </div>
-          <div>
-            <h2 className="text-xl font-semibold text-gray-900">Calculadora de Sueldo Líquido</h2>
-            <p className="text-gray-600">Calcula tu sueldo después de descuentos</p>
-          </div>
+          
+          {/* Analysis Button */}
+          <Link
+            to="/analysis"
+            className="flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-lg hover:from-blue-700 hover:to-indigo-700 transition-all duration-200 shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
+          >
+            <BarChart3 className="h-4 w-4" />
+            <span className="font-medium">Ver Análisis</span>
+          </Link>
         </div>
 
         <div className="grid md:grid-cols-2 gap-6">
