@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Routes, Route } from "react-router-dom";
-import { Calculator, Coins, Gift, Calendar, Banknote, Users, DollarSign } from "lucide-react";
+import { Calculator, Coins, Gift, Calendar, Banknote } from "lucide-react";
 import NetSalaryCalculator from "./components/NetSalaryCalculator";
 import CTSCalculator from "./components/CTSCalculator";
 import BonusCalculator from "./components/BonusCalculator";
@@ -11,7 +11,7 @@ import Layout from "./components/Layout";
 
 function HomePage() {
   const [activeTab, setActiveTab] = useState("sueldo");
-  const [sueldoBasico, setSueldoBasico] = useState<string>('');
+  const [sueldoBasico, setSueldoBasico] = useState<string>("");
 
   const tabs = [
     { id: "sueldo", label: "Sueldo Líquido", icon: Calculator },
@@ -24,7 +24,7 @@ function HomePage() {
   const renderActiveComponent = () => {
     const commonProps = {
       sueldoBasico,
-      setSueldoBasico
+      setSueldoBasico,
     };
 
     switch (activeTab) {

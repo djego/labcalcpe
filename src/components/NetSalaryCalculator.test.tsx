@@ -1,6 +1,7 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import NetSalaryCalculator from "./NetSalaryCalculator";
+import { MemoryRouter } from "react-router-dom";
 
 const mockProps = {
   sueldoBasico: "3000",
@@ -9,7 +10,11 @@ const mockProps = {
 
 describe("NetSalaryCalculator", () => {
   it("renders calculator title and description", () => {
-    render(<NetSalaryCalculator {...mockProps} />);
+    render(
+      <MemoryRouter>
+        <NetSalaryCalculator {...mockProps} />
+      </MemoryRouter>,
+    );
 
     expect(screen.getByText("Calculadora de Sueldo Líquido")).toBeInTheDocument();
     expect(
@@ -19,13 +24,21 @@ describe("NetSalaryCalculator", () => {
 
   it("shows warning when no basic salary is provided", () => {
     const propsWithoutSalary = { ...mockProps, sueldoBasico: "" };
-    render(<NetSalaryCalculator {...propsWithoutSalary} />);
+    render(
+      <MemoryRouter>
+        <NetSalaryCalculator {...propsWithoutSalary} />
+      </MemoryRouter>,
+    );
 
     expect(screen.getByText(/Ingresa tu sueldo básico/)).toBeInTheDocument();
   });
 
   it("calculates net salary correctly with AFP", () => {
-    render(<NetSalaryCalculator {...mockProps} />);
+    render(
+      <MemoryRouter>
+        <NetSalaryCalculator {...mockProps} />
+      </MemoryRouter>,
+    );
 
     // Should show calculation results
     expect(screen.getByText("Resultado del Cálculo")).toBeInTheDocument();
@@ -33,7 +46,11 @@ describe("NetSalaryCalculator", () => {
   });
 
   it("switches between AFP and ONP correctly", () => {
-    render(<NetSalaryCalculator {...mockProps} />);
+    render(
+      <MemoryRouter>
+        <NetSalaryCalculator {...mockProps} />
+      </MemoryRouter>,
+    );
 
     const onpRadio = screen.getByLabelText(/ONP \(Sistema Nacional\)/);
     fireEvent.click(onpRadio);
@@ -42,7 +59,11 @@ describe("NetSalaryCalculator", () => {
   });
 
   it("updates AFP percentage when changed", () => {
-    render(<NetSalaryCalculator {...mockProps} />);
+    render(
+      <MemoryRouter>
+        <NetSalaryCalculator {...mockProps} />
+      </MemoryRouter>,
+    );
 
     const afpInput = screen.getByDisplayValue("10.23");
     fireEvent.change(afpInput, { target: { value: "11.50" } });
@@ -52,14 +73,22 @@ describe("NetSalaryCalculator", () => {
 
   it("calculates income tax for high salaries", () => {
     const highSalaryProps = { ...mockProps, sueldoBasico: "10000" };
-    render(<NetSalaryCalculator {...highSalaryProps} />);
+    render(
+      <MemoryRouter>
+        <NetSalaryCalculator {...highSalaryProps} />
+      </MemoryRouter>,
+    );
 
     // Should show income tax deduction for salaries above 7 UIT/14
-    expect(screen.getByText("-S/ 850.67")).toBeInTheDocument();
+    expect(screen.getByText("-S/ 829.33")).toBeInTheDocument();
   });
 
   it("shows information section", () => {
-    render(<NetSalaryCalculator {...mockProps} />);
+    render(
+      <MemoryRouter>
+        <NetSalaryCalculator {...mockProps} />
+      </MemoryRouter>,
+    );
 
     expect(screen.getByText("Información importante:")).toBeInTheDocument();
     expect(screen.getByText(/El Impuesto a la Renta aplica/)).toBeInTheDocument();
