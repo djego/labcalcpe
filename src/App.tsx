@@ -6,7 +6,6 @@ import CTSCalculator from "./components/CTSCalculator";
 import BonusCalculator from "./components/BonusCalculator";
 import ProfitSharingCalculator from "./components/ProfitSharingCalculator";
 import VacationCalculator from "./components/VacationCalculator";
-import SalaryAnalysis from "./pages/SalaryAnalysis";
 import Layout from "./components/Layout";
 
 function HomePage() {
@@ -82,7 +81,6 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<HomePage />} />
-      <Route path="/analysis" element={<SalaryAnalysis />} />
     </Routes>
   );
 }

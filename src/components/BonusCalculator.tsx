@@ -19,32 +19,31 @@ const BonusCalculator: React.FC<Props> = ({ sueldoBasico }) => {
   const [mesesNavidad, setMesesNavidad] = useState<string>("6");
   const [calculation, setCalculation] = useState<BonusCalculation | null>(null);
 
-  const calcularGratificaciones = () => {
-    const sueldoBase = parseFloat(sueldoBasico);
-    const mesesJ = parseFloat(mesesJulio);
-    const mesesN = parseFloat(mesesNavidad);
-
-    if (!sueldoBase || sueldoBase <= 0) return;
-
-    // Gratificación de Fiestas Patrias (enero - junio)
-    const gratificacionJulio = (sueldoBase * mesesJ) / 6;
-
-    // Gratificación de Navidad (julio - diciembre)
-    const gratificacionNavidad = (sueldoBase * mesesN) / 6;
-
-    const total = gratificacionJulio + gratificacionNavidad;
-
-    setCalculation({
-      sueldoBase,
-      mesesTrabajados: mesesJ + mesesN,
-      gratificacionJulio,
-      gratificacionNavidad,
-      total,
-    });
-  };
-
-  // Auto-calculate when values change
   useEffect(() => {
+    const calcularGratificaciones = () => {
+      const sueldoBase = parseFloat(sueldoBasico);
+      const mesesJ = parseFloat(mesesJulio);
+      const mesesN = parseFloat(mesesNavidad);
+
+      if (!sueldoBase || sueldoBase <= 0) return;
+
+      // Gratificación de Fiestas Patrias (enero - junio)
+      const gratificacionJulio = (sueldoBase * mesesJ) / 6;
+
+      // Gratificación de Navidad (julio - diciembre)
+      const gratificacionNavidad = (sueldoBase * mesesN) / 6;
+
+      const total = gratificacionJulio + gratificacionNavidad;
+
+      setCalculation({
+        sueldoBase,
+        mesesTrabajados: mesesJ + mesesN,
+        gratificacionJulio,
+        gratificacionNavidad,
+        total,
+      });
+    };
+
     if (sueldoBasico) {
       calcularGratificaciones();
     }

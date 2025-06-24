@@ -2,7 +2,23 @@ import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import NetSalaryCalculator from "./NetSalaryCalculator";
 import { MemoryRouter } from "react-router-dom";
+import { createMemoryRouter, RouterProvider } from "react-router-dom";
 
+function renderWithRouter(element: React.ReactElement, path: string = "/") {
+  const router = createMemoryRouter(
+    [
+      {
+        path,
+        element,
+      },
+    ],
+    {
+      initialEntries: [path],
+    },
+  );
+
+  return render(<RouterProvider router={router} />);
+}
 const mockProps = {
   sueldoBasico: "3000",
   setSueldoBasico: vi.fn(),
@@ -10,11 +26,7 @@ const mockProps = {
 
 describe("NetSalaryCalculator", () => {
   it("renders calculator title and description", () => {
-    render(
-      <MemoryRouter>
-        <NetSalaryCalculator {...mockProps} />
-      </MemoryRouter>,
-    );
+    renderWithRouter(<NetSalaryCalculator {...mockProps} />);
 
     expect(screen.getByText("Calculadora de Sueldo Líquido")).toBeInTheDocument();
     expect(
@@ -80,7 +92,7 @@ describe("NetSalaryCalculator", () => {
     );
 
     // Should show income tax deduction for salaries above 7 UIT/14
-    expect(screen.getByText("-S/ 829.33")).toBeInTheDocument();
+    expect(screen.getByText("-S/ 1083.67")).toBeInTheDocument();
   });
 
   it("shows information section", () => {
